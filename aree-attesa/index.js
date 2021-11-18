@@ -301,7 +301,7 @@ function renderModel(place, latitude, longitude, scene, utilizzo) {
     // if needed
     // chooseColoredMarker(markerEl);
 
-    markerEl.setAttribute('src', ICONS[utilizzo]);
+    markerEl.setAttribute('src', ICONS.get(utilizzo));
 
     entity.appendChild(markerEl);
 
