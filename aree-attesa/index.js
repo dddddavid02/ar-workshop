@@ -6,6 +6,8 @@ const MIN_DISTANCE = 50;
 const MAX_NUMBER_MARKERS = 10;   // not limiting, for now
 const TIME_TO_UPDATE = 30;    // in seconds
 
+const ARRAY_IMGS = [];
+
 var places;
 var closestEntity = null;
 
