@@ -7,10 +7,10 @@ const MAX_NUMBER_MARKERS = 10;   // not limiting, for now
 const TIME_TO_UPDATE = 30;    // in seconds
 
 
-const ICONS = new Map([
-    [3, "https://img.icons8.com/fluency/50/000000/collect.png"],
-    [8, "https://img.icons8.com/fluency/48/000000/child-safe-zone.png"],
- ]);
+/*const ICONS = new Map([
+    [3, "https://img.icons8.com/fluency/512/000000/collect.png"],
+    [8, "https://img.icons8.com/fluency/512/000000/child-safe-zone.png"],
+ ]);*/
 
 var places;
 var closestEntity = null;
@@ -302,7 +302,7 @@ function renderModel(place, latitude, longitude, scene, utilizzo) {
     // chooseColoredMarker(markerEl);
 
     alert(utilizzo);
-    markerEl.setAttribute('src', ICONS.get(utilizzo));
+    markerEl.setAttribute('src', "/assets/"+utilizzo+".png");
 
     entity.appendChild(markerEl);
 
