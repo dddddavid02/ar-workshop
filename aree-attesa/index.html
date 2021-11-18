@@ -17,9 +17,9 @@
         <div class="loading-text animate-pulse">Caricamento in corso...</div>
     </div>-->
 
-    <div class="debug">
-        <button id="simulate border p-2">Simula posizione</button>
-        <button id="simulate-near">Simula posizione < N</button>
+    <div class="debug flex flex-col border">
+        <button id="simulate" class="p-2">Simula posizione</button>
+        <button id="simulate-near" class="p-2">Simula posizione < N</button>
     </div>
 
     <a-scene
@@ -36,13 +36,13 @@
         </a-entity>
     </a-scene>
 
-    <div class="footer">
+    <div class="flex justify-between fixed bottom-0 w-full border rounded-t-xl p-4">
         <div class="footer-container">
-            <div class="footer-place-title"></div>
-            <div class="footer-place-distance"></div>
+            <div class="font-bold text-xl">Ttiolo</div>
+            <div>70 m</div>
         </div>
-        <button class="footer-button">
-            <img aria-hidden src="./info.svg" />
+        <button>
+            <img aria-hidden src="https://img.icons8.com/fluency/48/000000/mac-os.png" />
         </button>
     </div>
     <div class="detail-panel">
