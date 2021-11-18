@@ -6,7 +6,11 @@ const MIN_DISTANCE = 50;
 const MAX_NUMBER_MARKERS = 10;   // not limiting, for now
 const TIME_TO_UPDATE = 30;    // in seconds
 
-const ARRAY_IMGS = [];
+
+const ICONS = new Map([
+    [3, "https://img.icons8.com/fluency/50/000000/collect.png"],
+    [8, "https://img.icons8.com/fluency/48/000000/child-safe-zone.png"],
+ ]);
 
 var places;
 var closestEntity = null;
@@ -131,7 +135,7 @@ function updatePanelData() {
 function elaboratePlaces(places) {
     window.places = places;
 
-    var entitiesAdded = 0;
+    var enttiesAdded = 0;
     window.addEventListener('gps-entity-place-added', () => {
         entitiesAdded++;
         console.log(entitiesAdded, places.length)
@@ -185,7 +189,9 @@ function renderPlaces(places) {
         const latitude = place.latitude;
         const longitude = place.longitude;
 
-        const entity = renderModel(place, latitude, longitude, scene);
+        const utilizzo = place.utilizzo;
+
+        const entity = renderModel(place, latitude, longitude, scene, utilizzo);
 
         // listen for every place changing of position
         entity.addEventListener('gps-entity-place-update-positon', () => {
@@ -283,7 +289,7 @@ function chooseColoredMarker(markerEl) {
     // }
 }
 
-function renderModel(place, latitude, longitude, scene) {
+function renderModel(place, latitude, longitude, scene, utilizzo) {
     const entity = document.createElement('a-entity');
     entity.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
     entity.setAttribute('look-at', '[gps-camera]');
@@ -295,7 +301,7 @@ function renderModel(place, latitude, longitude, scene) {
     // if needed
     // chooseColoredMarker(markerEl);
 
-    markerEl.setAttribute('src', './assets/marker.png');
+    markerEl.setAttribute('src', ICONS[utilizzo]);
 
     entity.appendChild(markerEl);
 
