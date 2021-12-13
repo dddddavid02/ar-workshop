@@ -4,12 +4,16 @@
 const MIN_DISTANCE = 50;
 
 const MAX_NUMBER_MARKERS = 10;   // not limiting, for now
-const TIME_TO_UPDATE = 10;    // in seconds
+const TIME_TO_UPDATE = 30;    // in seconds
+
+
+/*const ICONS = new Map([
+    [3, "https://img.icons8.com/fluency/512/000000/collect.png"],
+    [8, "https://img.icons8.com/fluency/512/000000/child-safe-zone.png"],
+ ]);*/
 
 var places;
 var closestEntity = null;
-var isClose;
-var entitiesAdded;
 
 // Calculate distance between two positions (with latitude and longitude fields)
 function computeDistance(position1, position2) {
@@ -93,7 +97,7 @@ window.onload = () => {
         });
 
     // open detail panel on footer click
-    document.querySelector('.footer').addEventListener('click', function() {
+    document.querySelector('.footer').addEventListener('click', function () {
         if (!window.closestPlace) {
             return;
         }
@@ -101,8 +105,10 @@ window.onload = () => {
         // show panel if not already opened
         if (!window.openPanel) {
             window.openPanel = true;
-            window.panel.classList.remove('translate-y-full');
+            window.panel.classList.add('opened');
             updatePanelData();
+        } else {
+            closePanel()
         }
     });
 };
@@ -110,7 +116,7 @@ window.onload = () => {
 function closePanel() {
     // if already opened, hide panel
     window.openPanel = false;
-    window.panel.classList.add('translate-y-full');
+    window.panel.classList.remove('opened');
 
     // update footer data
     setTimeout(() => {
@@ -124,10 +130,6 @@ function updatePanelData() {
     window.detailTitle.innerText = window.closestPlace && (window.closestPlace.denom || '');
     window.detailDistanceElem.innerText = window.closestPlace && (window.closestPlace.distanceMsg || '');
     window.detailAddressElem.innerText = window.closestPlace && (window.closestPlace.indirizzo || '');
-
-    if (isClose) {
-      getMoreDetails(window.closestPlace.utilizzo);
-    }
 }
 
 function elaboratePlaces(places) {
@@ -143,7 +145,7 @@ function elaboratePlaces(places) {
         }
     });
 
-    const firstTimeRenderListener = function(ev) {
+    const firstTimeRenderListener = function (ev) {
         // get the closest place
         window.closestPlace = findClosestPlaces(ev.detail.position, places, 1)[0];
 
@@ -231,9 +233,8 @@ function handleNearObject(entity, distance) {
     if (!closestEntity) {
         if (distance < MIN_DISTANCE) {
             // TODO mostrare qualcosa
-            console.log('ce un luogo molto vicino, < N'); 
-            mostraConfetti();           
-            isClose = true;
+            console.log('ce un luogo molto vicino, < N');
+
             // settiamo l'entity più vicina, che verrà rimossa quando la stessa entity sarà
             // ad una distanza >  MIN_DISTANCE
             closestEntity = entity;
@@ -243,8 +244,7 @@ function handleNearObject(entity, distance) {
         // c'è già ed è un nuovo luogo
         if (closestEntity !== entity && distance < closestEntity.distance && distance < MIN_DISTANCE) {
             // TODO rimuovo quello attuale
-            mostraConfetti();
-            isClose = false;
+
             // TODO creo quello nuovo
             closestEntity = entity;
             closestEntity.distance = distance;
@@ -254,7 +254,7 @@ function handleNearObject(entity, distance) {
         // c'è già, è quella corrente ma ora si trova più distante di MIN_DISTANCE
         if (closestEntity === entity && distance >= MIN_DISTANCE) {
             // TODO rimuovo quello attuale
-            isClose = false;
+
             closestEntity = null;
         }
     }
@@ -301,7 +301,7 @@ function renderModel(place, latitude, longitude, scene, utilizzo) {
     // if needed
     // chooseColoredMarker(markerEl);
 
-    markerEl.setAttribute('src', "/assets/"+utilizzo+".png");
+    markerEl.setAttribute('src', "assets/" + utilizzo + ".png");
 
     entity.appendChild(markerEl);
 
@@ -326,7 +326,6 @@ window.addEventListener('load', () => {
         camera.setAttribute('gps-camera', 'simulateLatitude', latitude);
         camera.setAttribute('gps-camera', 'simulateLongitude', longitude);
         window.currentPosition = { latitude, longitude };
-        camera.components['gps-camera'].update();
         const places = findClosestPlaces(window.currentPosition, window.places, MAX_NUMBER_MARKERS);
         renderPlaces(places);
         setClosestPlaceOnFooter();
@@ -334,31 +333,10 @@ window.addEventListener('load', () => {
     };
 
     document.querySelector('#simulate-near').addEventListener('click', () => {
-        // simulate(45.18441283929608, 11.305653982578798);
-        simulate(45.198808, 11.297805); // Via Emilio Lussu (test panda)
+        simulate(45.18441283929608, 11.305653982578798);
     });
 
     document.querySelector('#simulate').addEventListener('click', () => {
         simulate(45.182938, 11.305825);
     });
 });
-
-function getMoreDetails(utilizzo) {
-  if (utilizzo == 8) {
-    window.moreDetailsLink.innerText = "Qui sei al sicuro in caso di emergenza, attendi che arrivino i soccorsi!";
-  } 
-  else if (utilizzo == 3) {
-    window.moreDetailsLink.innerText = "Qui sei al sicuro in caso di inondazione, attendi che arrivino i soccorsi!"
-  }
-}
-
-function confetti() {
-  let confetti = document.getElementById("show-confetti");
-  confetti.style.display = "block";
-  confetti.innerHTML = '<iframe src="https://i.giphy.com/media/gKrbnqo25MlI2TUC78/giphy.webp" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">Your browser doesn\'t support iframes</iframe>'
-  //confetti.innerHTML = '<iframe src="https://giphy.com/embed/gKrbnqo25MlI2TUC78" width="1000" height="1000" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>';
-
-  setTimeout(function() {
-    document.getElementById("show-confetti").style.display = "none";
-  }, 4900)
-}
