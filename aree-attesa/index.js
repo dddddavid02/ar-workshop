@@ -97,7 +97,7 @@ window.onload = () => {
         });
 
     // open detail panel on footer click
-    document.querySelector('.footer').addEventListener('click', function() {
+    document.querySelector('.footer').addEventListener('click', function () {
         if (!window.closestPlace) {
             return;
         }
@@ -145,7 +145,7 @@ function elaboratePlaces(places) {
         }
     });
 
-    const firstTimeRenderListener = function(ev) {
+    const firstTimeRenderListener = function (ev) {
         // get the closest place
         window.closestPlace = findClosestPlaces(ev.detail.position, places, 1)[0];
 
@@ -301,8 +301,7 @@ function renderModel(place, latitude, longitude, scene, utilizzo) {
     // if needed
     // chooseColoredMarker(markerEl);
 
-    console.log("/assets/"+utilizzo+".png");
-    markerEl.setAttribute('src', "/assets/"+utilizzo+".png");
+    markerEl.setAttribute('src', "/assets/" + utilizzo + ".png");
 
     entity.appendChild(markerEl);
 
