@@ -41,7 +41,14 @@
 
         <div class="relative flex-1 h-full">
             <canvas id="canvas" class="confetti absolute z-10"></canvas>
-            <iframe src="camera.html" class="absolute w-screen h-screen" allow="camera *" /></iframe>
+
+            <a-scene device-orientation-permission-ui="enabled: false" vr-mode-ui='enabled: false' embedded
+                arjs='sourceType: webcam; debugUIEnabled: false;'>
+
+                <a-entity camera='near: 0.1; far: 50000;' arjs-look-controls='smoothingFactor: 0.1;'
+                    gps-camera="minDistance: 50; positionMinAccuracy: 300; gpsMinDistance: 5;" rotation-reader>
+                </a-entity>
+            </a-scene>
         </div>
 
         <div
