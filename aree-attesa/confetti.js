@@ -51,20 +51,25 @@ initConfetti = () => {
       color: colors[Math.floor(randomRange(0, colors.length))],
       dimensions: {
         x: randomRange(10, 20),
-        y: randomRange(10, 30) },
+        y: randomRange(10, 30)
+      },
 
       position: {
         x: randomRange(0, canvas.width),
-        y: canvas.height - 1 },
+        y: canvas.height - 1
+      },
 
       rotation: randomRange(0, 2 * Math.PI),
       scale: {
         x: 1,
-        y: 1 },
+        y: 1
+      },
 
       velocity: {
         x: randomRange(-25, 25),
-        y: randomRange(0, -50) } });
+        y: randomRange(0, -50)
+      }
+    });
 
 
   }

@@ -93,7 +93,7 @@ window.onload = () => {
         });
 
     // open detail panel on footer click
-    document.querySelector('.footer').addEventListener('click', function() {
+    document.querySelector('.footer').addEventListener('click', function () {
         if (!window.closestPlace) {
             return;
         }
@@ -126,7 +126,7 @@ function updatePanelData() {
     window.detailAddressElem.innerText = window.closestPlace && (window.closestPlace.indirizzo || '');
 
     if (isClose) {
-      getMoreDetails(window.closestPlace.utilizzo);
+        getMoreDetails(window.closestPlace.utilizzo);
     }
 }
 
@@ -143,7 +143,7 @@ function elaboratePlaces(places) {
         }
     });
 
-    const firstTimeRenderListener = function(ev) {
+    const firstTimeRenderListener = function (ev) {
         // get the closest place
         window.closestPlace = findClosestPlaces(ev.detail.position, places, 1)[0];
 
@@ -231,8 +231,8 @@ function handleNearObject(entity, distance) {
     if (!closestEntity) {
         if (distance < MIN_DISTANCE) {
             // TODO mostrare qualcosa
-            console.log('ce un luogo molto vicino, < N'); 
-            confetti();           
+            console.log('ce un luogo molto vicino, < N');
+            confetti();
             isClose = true;
             // settiamo l'entity più vicina, che verrà rimossa quando la stessa entity sarà
             // ad una distanza >  MIN_DISTANCE
@@ -301,7 +301,7 @@ function renderModel(place, latitude, longitude, scene, utilizzo) {
     // if needed
     // chooseColoredMarker(markerEl);
 
-    markerEl.setAttribute('src', "/assets/"+utilizzo+".png");
+    markerEl.setAttribute('src', "/assets/" + utilizzo + ".png");
 
     entity.appendChild(markerEl);
 
@@ -344,21 +344,21 @@ window.addEventListener('load', () => {
 });
 
 function getMoreDetails(utilizzo) {
-  if (utilizzo == 8) {
-    window.moreDetailsLink.innerText = "Qui sei al sicuro in caso di emergenza, attendi che arrivino i soccorsi!";
-  } 
-  else if (utilizzo == 3) {
-    window.moreDetailsLink.innerText = "Qui sei al sicuro in caso di inondazione, attendi che arrivino i soccorsi!"
-  }
+    if (utilizzo == 8) {
+        window.moreDetailsLink.innerText = "Qui sei al sicuro in caso di emergenza, attendi che arrivino i soccorsi!";
+    }
+    else if (utilizzo == 3) {
+        window.moreDetailsLink.innerText = "Qui sei al sicuro in caso di inondazione, attendi che arrivino i soccorsi!"
+    }
 }
 
 function confetti() {
-  let confetti = document.getElementById("show-confetti");
-  confetti.style.display = "block";
-  confetti.innerHTML = '<iframe src="https://i.giphy.com/media/gKrbnqo25MlI2TUC78/giphy.webp" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">Your browser doesn\'t support iframes</iframe>'
-  //confetti.innerHTML = '<iframe src="https://giphy.com/embed/gKrbnqo25MlI2TUC78" width="1000" height="1000" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>';
+    let confetti = document.getElementById("show-confetti");
+    confetti.style.display = "block";
+    confetti.innerHTML = '<iframe src="https://i.giphy.com/media/gKrbnqo25MlI2TUC78/giphy.webp" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">Your browser doesn\'t support iframes</iframe>'
+    //confetti.innerHTML = '<iframe src="https://giphy.com/embed/gKrbnqo25MlI2TUC78" width="1000" height="1000" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>';
 
-  setTimeout(function() {
-    document.getElementById("show-confetti").style.display = "none";
-  }, 4900)
+    setTimeout(function () {
+        document.getElementById("show-confetti").style.display = "none";
+    }, 4900)
 }

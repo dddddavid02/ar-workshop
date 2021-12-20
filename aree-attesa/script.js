@@ -106,11 +106,11 @@ window.onload = () => {
         }
     });*/
 
-    setInterval(function() {
-      if(window.titleElem.text() !== "") {
-        $('.loader', parent.document).addClass('hidden');
-        $('.footer', parent.document).removeClass('hidden');
-      }
+    setInterval(function () {
+        if (window.titleElem.text() !== "") {
+            $('.loader', parent.document).addClass('hidden');
+            $('.footer', parent.document).removeClass('hidden');
+        }
     }, 2000);
 };
 
@@ -121,9 +121,9 @@ function openPanel() {
     }*/
     // show panel if not already opened
     //if (!window.openPanel) {
-        //window.openPanel = true;
-        updatePanelData();
-        window.panel.removeClass('translate-y-full');
+    //window.openPanel = true;
+    updatePanelData();
+    window.panel.removeClass('translate-y-full');
     //}
 }
 
@@ -147,8 +147,8 @@ function updatePanelData() {
     window.detailAddressElem.text(window.closestPlace && (window.closestPlace.indirizzo || ''));
 
     if (isClose) {
-      window.moreDetailsLink.removeClass('hidden');
-      getMoreDetails(window.closestPlace.utilizzo);
+        window.moreDetailsLink.removeClass('hidden');
+        getMoreDetails(window.closestPlace.utilizzo);
     }
 }
 
@@ -165,7 +165,7 @@ function elaboratePlaces(places) {
         }
     });*/
 
-    const firstTimeRenderListener = function(ev) {
+    const firstTimeRenderListener = function (ev) {
         // get the closest place
         window.closestPlace = findClosestPlaces(ev.detail.position, places, 1)[0];
 
@@ -253,8 +253,8 @@ function handleNearObject(entity, distance) {
     if (!closestEntity) {
         if (distance < MIN_DISTANCE) {
             // TODO mostrare qualcosa
-            console.log('ce un luogo molto vicino, < N'); 
-            parent.mostraConfetti();           
+            console.log('ce un luogo molto vicino, < N');
+            parent.mostraConfetti();
             isClose = true;
             // settiamo l'entity più vicina, che verrà rimossa quando la stessa entity sarà
             // ad una distanza >  MIN_DISTANCE
@@ -290,8 +290,8 @@ function cleanDistanceMsg(distanceMsg) {
 
 function setClosestPlaceOnFooter() {
     //if (!window.openPanel) {
-        window.titleElem.text(window.closestPlace.denom);
-        window.distanceElem.text(window.closestPlace.distanceMsg);
+    window.titleElem.text(window.closestPlace.denom);
+    window.distanceElem.text(window.closestPlace.distanceMsg);
     //}
 }
 
@@ -323,7 +323,7 @@ function renderModel(place, latitude, longitude, scene, utilizzo) {
     // if needed
     // chooseColoredMarker(markerEl);
 
-    markerEl.setAttribute('src', "assets/"+utilizzo+".png");
+    markerEl.setAttribute('src', "assets/" + utilizzo + ".png");
 
     entity.appendChild(markerEl);
 
@@ -359,7 +359,7 @@ window.addEventListener('load', () => {
 
     $('#simulate-near', parent.document).click(() => {
         // simulate(45.18441283929608, 11.305653982578798);
-        simulate(45.198808, 11.297805); 
+        simulate(45.198808, 11.297805);
     });
 
     $('#simulate', parent.document).click(() => {
@@ -368,12 +368,12 @@ window.addEventListener('load', () => {
 });
 
 function getMoreDetails(utilizzo) {
-  if (utilizzo == 8) {
-    window.moreDetailsLink.text("Qui sei al sicuro in caso di emergenza, attendi che arrivino i soccorsi!");
-  } 
-  else if (utilizzo == 3) {
-    window.moreDetailsLink.text("Qui sei al sicuro in caso di inondazione, attendi che arrivino i soccorsi!");
-  }
+    if (utilizzo == 8) {
+        window.moreDetailsLink.text("Qui sei al sicuro in caso di emergenza, attendi che arrivino i soccorsi!");
+    }
+    else if (utilizzo == 3) {
+        window.moreDetailsLink.text("Qui sei al sicuro in caso di inondazione, attendi che arrivino i soccorsi!");
+    }
 }
 
 /*
